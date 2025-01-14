@@ -81,14 +81,14 @@ export const Header = () => {
             {/* Cart Window */}
             {iscartClicked && (
                 <motion.div initial={{x:"100%"}} animate={{x:0}} transition={{duration:0.5,ease : "circInOut"}} exit={{x:"100%"}}
-                className='fixed top-0 right-0 w-full sm:w-[450px] h-full bg-white  shadow-lg overflow-y-auto py-[60px] z-50'>
+                className='fixed top-0 right-0 w-full sm:w-[450px] h-full bg-white  shadow-lg overflow-y-auto py-[60px] pb-[120px] z-50'>
                     <div className='w-full sm:w-[450px]'>
-                        <div className='w-full sm:w-[450px] fixed bottom-0 h-[80px] py-2  text-white'>
-                            <div className='w-full sm:w-[450px] h-[30px] text-black bg-[#FFFFFF] flex flex-row items-center justify-between p-2 border-t-[1px] border-black text-sm'>
+                        <div className='w-full sm:w-[450px] fixed bottom-0 h-[130px] py-2  text-white'>
+                            <div className='w-full sm:w-[450px] h-[50px] text-black bg-[#FFFFFF] flex flex-row items-center justify-between p-2 border-t-[1px] border-black text-sm'>
                                 <p className=''>Total</p>
                                 <p className='pl-8'>₹2000</p>
                             </div>
-                            <div className='w-full sm:w-[450px] h-[50px] text-white bg-black flex flex-row  border-t-[1px] border-black text-sm items-center'>
+                            <div className='w-full sm:w-[450px] h-[80px] text-white bg-black flex flex-row  border-t-[1px] border-black text-sm items-center'>
                                 <button className='w-full h-full bg-black text-white active:bg-[#161616] flex justify-center items-center'>
                                     <p>Proceed to checkout</p>
                                 </button>

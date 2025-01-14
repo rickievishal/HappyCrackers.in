@@ -31,7 +31,7 @@ export default function Home() {
               className="text-4xl sm:text-4xl lg:text-5xl leading-5xl text-center tracking-[-3px] font-bold"
             />
 
-          <motion.div  initial={{opacity:0,y:"100%"}} animate={{opacity:1,y:0}} transition={{duration:1,delay:2,ease:"circInOut"}} className="flex flex-col justify-center items-center mt-4">
+          <motion.div  initial={{opacity:0,y:"100%"}} animate={{opacity:1,y:0}} transition={{duration:1,delay:2,ease:"circInOut"}} className="flex flex-col justify-center items-center ">
           <p className="max-w-sm text-xs sm:text-sm tracking-tight text-center mt-1 ">
           enjoy offers upto flat 70% on your first order.
           </p>
@@ -39,7 +39,7 @@ export default function Home() {
           </div>
          <motion.div  initial={{opacity:0,y:"100%"}} animate={{opacity:1,y:0}} transition={{duration:1,delay:2.3,ease:"circInOut"}}>
          <Link href={"/store"}>
-                <button className="text-sm flex justify-center items-center font-bold tracking-[-1px] px-4 py-2 bg-[#BBFF27] hover:bg-[#bdf448] mt-6 border-[1px] border-black">
+                <button className="text-sm flex justify-center items-center font-bold tracking-[-1px] px-4 py-2 bg-[#BBFF27] hover:bg-[#bdf448] mt-4 border-[1px] border-black scale-75 sm:scale-100">
                   Shop at store
                   <GoArrowUpRight className="text-lg ml-1"/>
                 </button>
@@ -87,7 +87,7 @@ export default function Home() {
       <div className="w-full py-[100px] bg-[#000000]">
             <div className="max-w-7xl mx-auto flex flex-col justify-center items-center px-3">
             <h5 className="text-3xl text-[#FFFFFF] font-bold tracking-[-2px] text-center">
-              Celebrating the <span className="bg-[#BBFF27] text-[#000] glow-green relative"><span className="w-[50px] h-[50px] rounded-full blur-[35px] bg-[#cfff69] absolute left-1 right-0 z-20"></span><span>
+              Celebrating the <span className="bg-[] text-[#bafe28] glow-green relative"><span>
                 <CountUp
                     from={10}
                     to={30}
@@ -96,7 +96,8 @@ export default function Home() {
                     duration={1}
                     className="count-up-text"
                   />+
-</span>
+              </span>
+<span className="w-[50px] h-[50px] bg-[rgb(190,255,49)] absolute left-0 blur-2xl"></span>
 </span> years of serving light and joy. 
             </h5>
             <p className="pt-5 max-w-sm text-center text-[#f1f1f1] leading-tight tracking-tighter">

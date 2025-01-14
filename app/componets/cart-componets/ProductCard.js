@@ -2,8 +2,10 @@ import React from 'react'
 import OfferTag from '../advertisment-components/OfferTag'
 import placeholder from "./product-card-placeholder.jpg"
 import Image from 'next/image'
+import Link from 'next/link'
 const ProductCard = () => {
   return (
+   <Link href={"store/products/adsf"}>
    <div className='flex flex-col w-[calc((100vw-50px)/2)]  sm:w-[calc((100vw-60px)/3)]  lg:w-[250px] '>
      <div className='w-[calc((100vw-50px)/2)] h-[calc(0.7*(100vw+100px))] sm:w-[calc((100vw-60px)/3)] sm:h-[calc(0.5*(100vw-40px))] lg:w-[250px] lg:h-[380px] border-[1px] border-black relative'>
         <div className='absolute top-0 right-0 translate-x-[20%] -translate-y-[50%] z-20'> 
@@ -29,6 +31,7 @@ const ProductCard = () => {
         </button>
     </div>
    </div>
+   </Link>
   )
 }
 const OfferPriceComponet = ({olderPrice,newPrice,isoffer}) =>{
