@@ -30,6 +30,7 @@ const Page = () => {
               <PriceDropdownFilter/>
             </div>
             <div>
+              
               <SearchBar className={"hello h-[40px]"}/>
             </div>
         </div>
