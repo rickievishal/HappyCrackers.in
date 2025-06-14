@@ -4,7 +4,7 @@ import image from "./assets/logo/happycrackersfooter.png"
 import hero from "./assets/logo/footerhero.png"
 const Footer = () => {
   return (
-    <div className='w-full pb-[100px] sm:pb-[150px] bg-[#000000e2] border-t-[1px] border-[#252525] relative overflow-hidden '>
+    <div className='w-full pb-[100px] sm:pb-[150px] bg-[#000000e2] border-t-[1px] border-[#bbff27ac] relative overflow-hidden  '>
         <div className='w-full  bg-black flex justify-center items-center text-[#BBFF27] absolute bottom-0 z-20 border-t-[1px] border-[#BBFF27]'>
             <p className='text-xs p-2 text-center'>
             for queries feel free to reach us out through whatsapp +91 9443919192, +91 7598007270 
@@ -17,20 +17,20 @@ const Footer = () => {
         <div className='max-w-7xl mx-auto flex flex-col sm:flex-row text-white p-10'>
             <div className='w-full flex flex-wrap lg:flex-row justify-between sm:justify-start sm:gap-20'>
                     <div>
-                        <h1 className='text-lg'>
+                        <h1 className='text-sm'>
                             Social Media
                         </h1>
-                        <ul className='flex flex-col space-y-2 mt-2 text-sm'>
+                        <ul className='flex flex-col space-y-2 mt-2 text-xs'>
                             <li><a href='' className='hover:cursor-pointer hover:underline'>Instagram</a></li>
                             <li><a href='' className='hover:cursor-pointer hover:underline'>Whatsapp</a></li>
                             <li><a href='' className='hover:cursor-pointer hover:underline'>Website</a></li>
                         </ul>
                     </div>
                     <div>
-                        <h1 className='text-lg'>
+                        <h1 className='text-sm'>
                             Phone
                         </h1>
-                        <ul className='flex flex-col space-y-2 mt-2 text-sm'>
+                        <ul className='flex flex-col space-y-2 mt-2 text-xs'>
                             <li>+91 9443919192</li>
                             <li>+91 7598007270</li>
                         </ul>

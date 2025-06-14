@@ -1,33 +1,48 @@
 "use client"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductCard from '../componets/cart-componets/ProductCard'
 import AdMarquee from "../componets/advertisment-components/AdMarquee";
+import SearchBar from "../componets/store-components/SearchBar";
+import { MdFilterList } from "react-icons/md";
+import axios from "axios";
 
 
-const page = () => {
+const Page = () => {
+  const [products , setProducts] = useState([])
+    useEffect(() => {
+    axios.get("http://localhost:3000/products")
+      .then((response) => {
+        setProducts(response.data);
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.error("Failed to fetch products:", error);
+      });
+  }, []);
   return (
     <div className='w-full'>
       <div className='w-full h-[200px] bg-black'>
 
       </div>
       <AdMarquee/>
-        <div className='max-w-5xl mx-auto flex justify-between items-center py-4 px-4'>
+        <div className='max-w-5xl mx-auto flex justify-between items-center py-4 px-4 gap-4'>
             <div>
               <PriceDropdownFilter/>
             </div>
+            <div>
+              <SearchBar className={"hello h-[40px]"}/>
+            </div>
         </div>
         <div className='max-w-7xl mx-auto flex flex-wrap justify-center items-center py-5 gap-x-2 gap-y-5 '>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
+            {
+              products.map((data,index) =>(<ProductCard key={index} data={data}/>))
+            }
         </div>
     </div>
   )
 }
 
-export default page
+export default Page
 
 
 
@@ -60,9 +75,9 @@ const PriceDropdownFilter = () => {
       {/* Dropdown Button */}
       <button
         onClick={toggleDropdown}
-        className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border-[1px] border-black shadow-sm hover:bg-gray-50 focus:outline-none"
+        className="flex items-center justify-between w-full h-[40px] px-2 py-2 text-sm font-medium text-gray-700 bg-white border-[1px] border-black shadow-sm hover:bg-gray-50 focus:outline-none"
       >
-        Filter: Price {selectedRange && `(${priceRanges.find((p) => p.value === selectedRange)?.label})`}
+       <MdFilterList className="text-[22px] pr-2"/> Price {selectedRange && `(${priceRanges.find((p) => p.value === selectedRange)?.label})`}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="w-4 h-4 ml-2"

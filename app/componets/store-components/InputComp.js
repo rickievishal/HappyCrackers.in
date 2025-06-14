@@ -1,34 +1,20 @@
-"use client"
-import React, { useState, useEffect } from 'react';
+const InputComp = ({ label, value, onChange, type = "text",iscurrency }) => {
+  return (
+    <div className="mb-4">
+      <label className="block text-sm font-medium">{label}</label>
+      <div className="relative">
+        <input
+        type={type}
+        value={value}
+        onChange={onChange}  // ✅ pass the whole event object
+        className="border border-gray-800 p-2 w-full"
+      />
+      {iscurrency && (
+        <p className="text-xl absolute right-3 -top-[20%] translate-y-[50%]">₹</p>
+      )}
+      </div>
+    </div>
+  )
+}
 
-const InputComp = ({ value = 0, className = '', onChange,label,type='',placeHolder="" }) => {
-    const [val, setVal] = useState(value); // Initialize state with prop value
-
-    // Sync state with prop when `value` changes
-    useEffect(() => {
-        setVal(value);
-    }, [value]);
-
-    const handleChange = (e) => {
-        const newValue = e.target.value;
-        setVal(newValue); // Update local state
-        if (onChange) onChange(newValue); // Notify parent (if callback is provided)
-    };
-
-    return (
-        <div className='flex flex-col tracking-tighter'>
-            <p  className="text-xs sm:text-sm my-2">
-                {label}
-            </p>
-            <input
-                placeholder={placeHolder}
-                className={`border-[1px] border-black p-2 tracking-tighter focus:bg-[#ffffff] focus:border-black outline-none placeholder:text-sm ${className}`}
-                value={val}
-                type={type}
-                onChange={handleChange} // Controlled input
-            />
-        </div>
-    );
-};
-
-export default InputComp;
+export default InputComp

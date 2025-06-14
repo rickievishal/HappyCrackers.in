@@ -1,6 +1,6 @@
 "use client";
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { VscMenu } from "react-icons/vsc";
 import Link from 'next/link';
 import logo from "./assets/logo/happycrackershorizontal.png";
@@ -8,9 +8,45 @@ import { PiBagThin } from "react-icons/pi";
 import { AnimatePresence, easeIn, motion } from 'framer-motion';
 import { IoCloseOutline } from "react-icons/io5";
 import CartProduct from './componets/cart-componets/CartProduct';
+import { useCartDetails } from '@/lib/reduxStore/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '@/lib/reduxStore/Reducers';
+import { Button } from '@/components/ui/button';
+import { GoArrowRight } from 'react-icons/go';
+
 export const Header = () => {
     const [iscartClicked, IscartClicked] = useState(false);
     const [ismenuClicked, setIsmenuClicked] = useState(false);
+    const [cartProducts, setCartProducts] = useState([])
+    const [SubTotal, setSubTotal] = useState(0)
+    const [netPrice,setNetPrice] = useState(0)
+    const dispatch = useDispatch()
+    
+    const cartItems = useSelector((state) => state.cartAction.cartItems);
+    const totalItems = useSelector((state) => state.cartAction.totalItems);
+   
+    useEffect(() => {
+        setCartProducts(useCartDetails().cartItems)
+         const calculateTotal = () =>{
+        if(cartItems.length){
+            console.log(cartItems)
+            console.log(totalItems)
+            let total = 0 
+            cartItems.map((product)=>{
+                total = product.quantity*product.productCost + total
+            })
+            console.log(total)
+            setSubTotal(total)
+            total = 0 
+            cartItems.map((product)=>{
+                total = product.quantity*product.productPrice + total
+            })
+            setNetPrice(total)
+        }
+    }
+        calculateTotal();
+        console.log(SubTotal)
+    }, [totalItems])
     const handleCartClick = () => {
         IscartClicked(!iscartClicked);
 
@@ -35,6 +71,8 @@ export const Header = () => {
         setIsmenuClicked(false);
         document.body.style.overflow = "auto";
     }
+   
+    console.log(cartProducts)
     return (
         <>
             {/* Overlay */}
@@ -53,7 +91,7 @@ export const Header = () => {
                             <IoCloseOutline/>
                             </p>
                         </div>
-                        <ul className='py-4 flex flex-col gap-y-4'>
+                        <ul className='py-4 flex flex-col gap-y-4 '>
                             <li className='border-b-[1px] border-black'>
                                 <Link href={'/'} className='text-xl' onClick={handleCloseMenu}>Home</Link>
                             </li>
@@ -82,19 +120,57 @@ export const Header = () => {
             {iscartClicked && (
                 <motion.div initial={{x:"100%"}} animate={{x:0}} transition={{duration:0.5,ease : "circInOut"}} exit={{x:"100%"}}
                 className='fixed top-0 right-0 w-full sm:w-[450px] h-full bg-white  shadow-lg overflow-y-auto py-[60px] pb-[120px] z-50'>
-                    <div className='w-full sm:w-[450px]'>
-                        <div className='w-full sm:w-[450px] fixed bottom-0 h-[130px] py-2  text-white'>
-                            <div className='w-full sm:w-[450px] h-[50px] text-black bg-[#FFFFFF] flex flex-row items-center justify-between p-2 border-t-[1px] border-black text-sm'>
-                                <p className=''>Total</p>
-                                <p className='pl-8'>₹2000</p>
+                    {
+                        totalItems != "0" && (
+                            <div className='w-full sm:w-[450px]'>
+                                <div className='w-full sm:w-[450px] fixed bottom-0  text-white flex flex-col'>
+                                    <div className='w-full sm:w-[450px] text-black bg-[#FFFFFF] flex flex-col items-center justify-center gap-y-1 border-t-[1px] border-black text-sm p-2'>
+                                        <div className='w-full flex justify-between items-center'>
+                                            <p className=''>Net Total</p>
+                                            <p className='pl-8'>₹{netPrice}</p>
+                                        </div>
+                                        <div className='w-full flex justify-between items-center text-green-600'>
+                                            <p className=''>You save</p>
+                                            <p className='pl-8'>₹{netPrice - SubTotal}</p>
+                                        </div>
+                                        <div className='w-full flex justify-between items-center text-lg'>
+                                            <p className=''>Offer Price</p>
+                                            <p className='pl-8'>₹{SubTotal}</p>
+                                        </div>
+                                        <div className='w-full flex justify-between items-center'>
+                                            <p className=''>Tax {"(18%)"}</p>
+                                            <p className='pl-8'>₹{Math.round(SubTotal*.18)}</p>
+                                        </div>
+                                        <div className='w-full flex justify-between items-center text-xl'>
+                                            <p className=''>Grand Total</p>
+                                            <p className='pl-8'>₹{Math.round(SubTotal+(SubTotal*.18))}</p>
+                                        </div>
+                                    </div>
+                                    <Link href={"/store/checkout"}>
+                                        <div className='w-full sm:w-[450px] text-white bg-black flex flex-row  border-t-[1px] border-black text-sm items-center' onClick={handleCloseCart}>
+                                            <button className='w-full bg-black text-white active:bg-[#161616] flex justify-center items-center py-4' >
+                                                <p className='h-full text-center flex items-center justify-center' >Proceed to checkout</p>
+                                            </button>
+                                        </div>
+                                    </Link>
+                                </div>
+                            </div> 
+                        )
+                    }
+                    {
+                        totalItems == "0" && (
+                            <div className='w-full h-full flex flex-col justify-center items-center'>
+                                <h1 className='py-4'>
+                                    You Bag is empty
+                                </h1>
+                                <Button>
+                                    <Link href={"/store"} className='flex gap-2 items-center justify-center rounded-0'>
+                                        Go to store <GoArrowRight className='text-xl' />
+                                    </Link>
+                                </Button>
                             </div>
-                            <div className='w-full sm:w-[450px] h-[80px] text-white bg-black flex flex-row  border-t-[1px] border-black text-sm items-center'>
-                                <button className='w-full h-full bg-black text-white active:bg-[#161616] flex justify-center items-center'>
-                                    <p>Proceed to checkout</p>
-                                </button>
-                            </div>
-                        </div>
-                    </div> 
+                        )
+                    }
                     <div className='w-full sm:w-[450px] fixed top-0 bg-[#FFFFFF] p-2 sm:p-4 flex justify-between items-center border-b border-black'>
                         <h2 className='text-lg '>Your Bag</h2>
                         <button onClick={handleCloseCart} className='text-2xl font-bold'>
@@ -103,34 +179,29 @@ export const Header = () => {
                     </div>
                     <div className='p-2 sm:p-4 flex flex-col justify-center items-start gap-y-1'>
                         {/* Cart Content */}
+                        {
+                            cartItems.map((product) => (
+                                <CartProduct data={product} key={product.productId}/>
+                            ))
+                        }
                         
-                        <CartProduct data={{name:"Deluxe Box"}}/>
-                        <CartProduct data={{name:"Deluxe Box"}}/>
-                        <CartProduct data={{name:"Deluxe Box"}}/>
-                        <CartProduct data={{name:"Deluxe Box"}}/>
-                        <CartProduct data={{name:"Deluxe Box"}}/>
-                        <CartProduct data={{name:"Deluxe Box"}}/>
-                        <CartProduct data={{name:"Deluxe Box"}}/>
-                        <CartProduct data={{name:"Deluxe Box"}}/>
-                        <CartProduct data={{name:"Deluxe Box"}}/>
-                        <CartProduct data={{name:"Deluxe Box"}}/>
-                        <CartProduct data={{name:"Deluxe Box"}}/>
-                        <CartProduct data={{name:"Deluxe Box"}}/>
                     </div>
                 </motion.div>
             )}
             </AnimatePresence>
             <nav className="w-full h-[40px] border-b-[1px] border-black lg:px-[50px] flex flex-row justify-between items-center fixed top-0 bg-[#FFFFFF] z-40">
                 <div className='px-[20px] w-full lg:max-w-7xl mx-auto flex flex-row justify-between items-center'>
-                    <div className='w-[150px]'>
-                        <Image
-                            src={logo}
-                            priority
-                            width={200}
-                            height={60}
-                            alt="Logo"
-                        />
-                    </div>
+                    <Link href={'/store'}>
+                        <div className='w-[150px]'>
+                            <Image
+                                src={logo}
+                                priority
+                                width={200}
+                                height={60}
+                                alt="Logo"
+                            />
+                        </div>
+                    </Link>
                     <div className='flex flex-row'>
                         <ul className='flex-row space-x-10 text-sm hidden lg:flex'>
                             <li><Link href={'/'}>Home</Link></li>
@@ -138,18 +209,22 @@ export const Header = () => {
                             <li><Link href={'/reach_us'}>Reach us</Link></li>
                         </ul>
                         <div className='text-lg z-30 lg:hidden hover:cursor-pointer' onClick={handlemenuClick}>
-
                             <button>
                             <VscMenu />
                             </button>
-                                
-
                         </div>
                         <div
-                            className='text-xl ml-5 lg:ml-10 cursor-pointer'
+                            className='text-xl ml-5 lg:ml-10 cursor-pointer relative'
                             onClick={handleCartClick}
                         >
-                            <PiBagThin />
+                            <PiBagThin className='text-2xl' />
+                            {
+                                totalItems!="0" && (
+                                    <div className='w-[15px] h-[15px] bg-black text-white rounded-r-full rounded-l-full text-xs flex justify-center items-center font-bold absolute bottom-0 translate-y-[30%] lg:translate-y-[50%] translate-x-[100%]'>
+                                        <p>{totalItems}</p>
+                                    </div>
+                                )
+                            }
                         </div>
                     </div>
                 </div>

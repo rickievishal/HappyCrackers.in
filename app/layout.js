@@ -4,6 +4,9 @@ import { Header } from "./Header";
 import Footer from "./Footer";
 import Head from "next/head";
 
+import  {Provider}  from "react-redux";
+import { store } from "@/lib/reduxStore/store";
+import StoreProvider from "./StoreProvider";
 
 
 export const metadata = {
@@ -15,17 +18,15 @@ const interfont = Inter({
   weight: ['100','200','300','400','500','600','700','800']
 })
 export default function RootLayout({ children }) {
+  
   return (
-    <html lang="en">
-      
+    <html lang="en"> 
       <body
-        className={`${interfont.variable} ${interfont.variable} antialiased ${interfont.className} h-screen w-full relative`}
+        className={`${interfont.variable} ${interfont.variable} antialiased ${interfont.className} h-screen w-full relative tracking-[-1px]`}
       >
-        <Header/>
-        <main className="mt-[40px]">
-        {children}
-        </main>
-        <Footer/>
+        
+          <StoreProvider children={children}/>
+        
       </body>
       
     </html>

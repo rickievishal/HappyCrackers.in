@@ -13,10 +13,15 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import BlurText from "./componets/animated-components/BlurText";
 import CountUp from "./componets/animated-components/CountUp";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { addToCart } from "@/lib/reduxStore/Reducers";
 export default function Home() {
   const handleAnimationComplete = () => {
     console.log('Animation completed!');
   };
+ 
+  
   return (
    <div className="w-full">
       <div className="max-w-7xl h-[calc(100vh-40vh)] mx-auto flex flex-col items-center justify-center">
