@@ -12,7 +12,7 @@ const page = () => {
   const [activeOrder,setActiveOrder] = useState([])
    const getOrders = async() => {
         try {
-          const res = await axios.get("http://localhost:3000/orders")
+          const res = await axios.get("https://happycrackersprod.onrender.com/orders")
           console.log(res.data)
           setOrders(res.data)
         }catch(error) {
@@ -26,7 +26,7 @@ const page = () => {
   }, [])
   const handlePending = async(orderId) =>{
    try{
-     await axios.post('http://localhost:3000/orders/update-status/close', {
+     await axios.post('https://happycrackersprod.onrender.com/orders/update-status/close', {
         orderId,
     });
     console.log("updated")
@@ -37,7 +37,7 @@ const page = () => {
   }
   const handleClose = async(orderId) => {
    try{
-     await axios.post("http://localhost:3000/orders/update-status/pending",{
+     await axios.post("https://happycrackersprod.onrender.com/orders/update-status/pending",{
       orderId,
     })
    }catch(err) {
@@ -46,7 +46,7 @@ const page = () => {
     getOrders()
   }
   const deleteOrder = async (orderId)=> {
-    await axios.post("http://localhost:3000/orders/delete",{orderId})
+    await axios.post("https://happycrackersprod.onrender.com/orders/delete",{orderId})
     getOrders()
   }
   const [iscontentViewHovered,setIscontentViewHovered] = useState()

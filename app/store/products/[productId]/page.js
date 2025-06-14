@@ -35,7 +35,7 @@ const page = ({params}) => {
   const [productPageData, setProductPageData] = useState({})
   const [content,setContent] =useState("")
     useEffect(() => {
-    axios.get("http://localhost:3000/products")
+    axios.get("https://happycrackersprod.onrender.com/products")
       .then((response) => {
 
         const products = response.data;

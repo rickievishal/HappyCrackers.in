@@ -28,7 +28,7 @@ const Page = () => {
     const formData = new FormData();
     formData.append("image", file);
 
-    const res = await fetch("http://localhost:3000/upload-image", {
+    const res = await fetch("https://happycrackersprod.onrender.com/upload-image", {
       method: "POST",
       body: formData
     });
@@ -68,7 +68,7 @@ const Page = () => {
     };
 
      try {
-    const res = await axios.post("http://localhost:3000/products", payload, {
+    const res = await axios.post("https://happycrackersprod.onrender.com/products", payload, {
       headers: {
         "Content-Type": "application/json"
       }

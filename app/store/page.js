@@ -10,7 +10,7 @@ import axios from "axios";
 const Page = () => {
   const [products , setProducts] = useState([])
     useEffect(() => {
-    axios.get("http://localhost:3000/products")
+    axios.get("https://happycrackersprod.onrender.com/products")
       .then((response) => {
         setProducts(response.data);
         console.log(response.data)

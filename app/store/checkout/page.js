@@ -97,7 +97,7 @@ const page = () => {
 
       const payload = createOrder()
       try{
-      const res = await axios.post("http://localhost:3000/order",payload, {
+      const res = await axios.post("https://happycrackersprod.onrender.com/order",payload, {
       headers: {
         "Content-Type": "application/json"
       }
